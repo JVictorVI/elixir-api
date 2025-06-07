@@ -1,6 +1,7 @@
 defmodule ElixirApiWeb.UserJSON do
   alias ElixirApi.Accounts.User
   alias ElixirApi.Transactions.Transaction
+  alias ElixirApi.Tags.Tag
 
   @doc """
   Renders a list of users.
@@ -24,7 +25,8 @@ defmodule ElixirApiWeb.UserJSON do
       password: user.password,
       created_at: user.inserted_at,
       updated_at: user.updated_at,
-      transactions: for(transaction <- user.transactions, do: transaction_data(transaction))
+      transactions: for(transaction <- user.transactions, do: transaction_data(transaction)),
+      tags: for(tag <- user.tags, do: tag_data(tag))
     }
   end
 
@@ -37,6 +39,15 @@ defmodule ElixirApiWeb.UserJSON do
       transaction_date: transaction.transaction_date,
       created_at: transaction.inserted_at,
       updated_at: transaction.updated_at
+    }
+  end
+
+  defp tag_data(%Tag{} = tag) do
+    %{
+      id: tag.id,
+      name: tag.name,
+      created_at: tag.inserted_at,
+      updated_at: tag.updated_at
     }
   end
 end

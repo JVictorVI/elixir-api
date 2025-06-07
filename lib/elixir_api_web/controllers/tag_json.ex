@@ -18,7 +18,10 @@ defmodule ElixirApiWeb.TagJSON do
   defp data(%Tag{} = tag) do
     %{
       id: tag.id,
-      name: tag.name
+      user_id: tag.user_id,
+      name: tag.name,
+      created_at: tag.inserted_at,
+      updated_at: tag.updated_at
     }
   end
 end

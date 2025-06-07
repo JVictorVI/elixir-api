@@ -7,6 +7,7 @@ defmodule ElixirApi.Accounts.User do
     field :password, :string
     field :email, :string
     has_many :transactions, ElixirApi.Transactions.Transaction
+    has_many :tags, ElixirApi.Tags.Tag
     timestamps(type: :utc_datetime)
   end
 
