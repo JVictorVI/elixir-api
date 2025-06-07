@@ -25,6 +25,7 @@ defmodule ElixirApiWeb.Router do
 
     resources "/users", UserController, except: [:new, :edit]
     resources "/transactions", TransactionController, except: [:new, :edit]
+    resources "/tags", TagController, except: [:new, :edit]
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
