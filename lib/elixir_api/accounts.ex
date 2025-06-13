@@ -61,13 +61,15 @@ defmodule ElixirApi.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
-    |> Repo.preload(:transactions)
-    |> Repo.preload(:tags)
+  def create_user(attrs) do
+    with {:ok, user} <- %User{}
+                      |> User.changeset(attrs)
+                      |> Repo.insert()
+    do
+      {:ok, Repo.preload(user, [:transactions, :tags])}
+    end
   end
+
 
   @doc """
   Updates a user.

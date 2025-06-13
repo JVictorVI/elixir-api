@@ -1,6 +1,10 @@
 defmodule ElixirApiWeb.Router do
   use ElixirApiWeb, :router
 
+  pipeline :auth do
+    plug ElixirApi.Auth.Pipeline
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -22,6 +26,14 @@ defmodule ElixirApiWeb.Router do
 
   scope "/api", ElixirApiWeb do
     pipe_through :api
+
+    post "/login", SessionController, :create
+    post "/users", UserController, :create
+  end
+
+
+  scope "/api", ElixirApiWeb do
+    pipe_through [:api, :auth]
 
     resources "/users", UserController, except: [:new, :edit]
     resources "/transactions", TransactionController, except: [:new, :edit]
