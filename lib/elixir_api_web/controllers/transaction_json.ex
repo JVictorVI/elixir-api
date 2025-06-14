@@ -1,4 +1,5 @@
 defmodule ElixirApiWeb.TransactionJSON do
+  alias ElixirApi.Tags.Tag
   alias ElixirApi.Transactions.Transaction
 
   @doc """
@@ -23,8 +24,16 @@ defmodule ElixirApiWeb.TransactionJSON do
       value: transaction.value,
       type: transaction.type,
       transaction_date: transaction.transaction_date,
+      tags: for(tag <- transaction.tags, do: tag_data(tag)),
       created_at: transaction.inserted_at,
       updated_at: transaction.updated_at
+    }
+  end
+
+  defp tag_data(%Tag{} = tag) do
+    %{
+      id: tag.id,
+      name: tag.name
     }
   end
 end

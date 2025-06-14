@@ -5,6 +5,8 @@ defmodule ElixirApi.Tags.Tag do
   schema "tags" do
     field :name, :string
     belongs_to :user, ElixirApi.Accounts.User
+    many_to_many :transactions, ElixirApi.Transactions.Transaction,
+    join_through: "tags_transactions"
     timestamps(type: :utc_datetime)
   end
 

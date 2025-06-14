@@ -18,7 +18,7 @@ defmodule ElixirApi.Transactions do
 
   """
   def list_transactions do
-    Repo.all(Transaction)
+    Repo.all(Transaction) |> Repo.preload(:tags)
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule ElixirApi.Transactions do
       ** (Ecto.NoResultsError)
 
   """
-  def get_transaction!(id), do: Repo.get!(Transaction, id)
+  def get_transaction!(id), do: Repo.get!(Transaction, id) |> Repo.preload(:tags)
 
   @doc """
   Creates a transaction.
