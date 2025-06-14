@@ -60,6 +60,7 @@ defmodule ElixirApi.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
       {:guardian, "~> 2.3"},
+      {:cors_plug, "~> 3.0"},
       {:bcrypt_elixir, "~> 3.0"}
     ]
   end

@@ -1,6 +1,16 @@
 defmodule ElixirApiWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :elixir_api
 
+  # ====================================================================
+  # INÍCIO DO CÓDIGO MOVIDO PARA CORS - AGORA NO TOPO DA PIPELINE (APENAS PARA TESTE)
+  plug CORSPlug,
+    origins: ["*"], # ATENÇÃO: APENAS PARA DEBUG. NÃO USE EM PRODUÇÃO.
+    headers: ["authorization", "content-type"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_credentials: true
+  # FIM DO CÓDIGO MOVIDO PARA CORS
+  # ====================================================================
+
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.

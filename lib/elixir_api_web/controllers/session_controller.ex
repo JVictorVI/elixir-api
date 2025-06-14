@@ -1,26 +1,19 @@
 defmodule ElixirApiWeb.SessionController do
   use ElixirApiWeb, :controller
 
-  alias ElixirApiWeb.Auth.Guardian
+  alias ElixirApi.Accounts
+  alias ElixirApiWeb.Auth.Guardian # Use o alias correto para o seu módulo Guardian
 
   def create(conn, %{"email" => email, "password" => password}) do
-    case Guardian.authenticate(email, password) do
-      {:ok, user, token} ->
+    case Guardian.authenticate(email, password) do # Use Guardian.authenticate
+      {:ok, user, token} -> # O authenticate retorna {:ok, user, token}
         conn
         |> put_status(:ok)
-        |> json(%{
-          token: token,
-          user: %{
-            id: user.id,
-            email: user.email,
-            name: user.name
-          }
-        })
-
-      {:error, :unauthorized} ->
+        |> render("session.json", jwt_token: token) # Use o token diretamente
+      {:error, _reason} -> # _reason pode ser :unauthorized ou outro erro
         conn
         |> put_status(:unauthorized)
-        |> json(%{error: "Email ou senha inválidos"})
+        |> render(ElixirApiWeb.ErrorJSON, %{message: "E-mail ou senha inválidos."})
     end
   end
 end
