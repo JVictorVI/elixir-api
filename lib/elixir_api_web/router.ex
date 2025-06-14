@@ -20,8 +20,6 @@ defmodule ElixirApiWeb.Router do
 
   scope "/", ElixirApiWeb do
     pipe_through :browser
-
-    #get "/", PageController, :home
   end
 
   scope "/api", ElixirApiWeb do
