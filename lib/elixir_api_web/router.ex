@@ -22,6 +22,7 @@ defmodule ElixirApiWeb.Router do
     pipe_through :browser
   end
 
+  # Rotas liberadas
   scope "/api", ElixirApiWeb do
     pipe_through :api
 
@@ -29,7 +30,7 @@ defmodule ElixirApiWeb.Router do
     post "/users", UserController, :create
   end
 
-
+  # Rotas protegidas
   scope "/api", ElixirApiWeb do
     pipe_through [:api, :auth]
 
